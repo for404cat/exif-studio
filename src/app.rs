@@ -5,7 +5,7 @@ use std::pin::Pin;
 use std::sync::Arc;
 use std::sync::Mutex;
 use std::sync::mpsc::{self, Receiver, TryRecvError};
-use std::task::{Context as TaskContext, Poll, Wake, Waker};
+use std::task::{Context as TaskContext, Poll, Waker};
 use std::time::{Duration, Instant};
 
 use eframe::egui::{
@@ -144,12 +144,6 @@ struct PendingAction {
 }
 
 type FolderPicker = Pin<Box<dyn Future<Output = Option<Vec<rfd::FileHandle>>> + Send>>;
-
-struct NoopWake;
-
-impl Wake for NoopWake {
-    fn wake(self: Arc<Self>) {}
-}
 
 struct VisionHardware {
     gpu: String,
@@ -528,8 +522,8 @@ impl ExifStudioApp {
         let Some(future) = self.folder_picker.as_mut() else {
             return;
         };
-        let waker = Waker::from(Arc::new(NoopWake));
-        let mut task = TaskContext::from_waker(&waker);
+        let waker = Waker::noop();
+        let mut task = TaskContext::from_waker(waker);
         match future.as_mut().poll(&mut task) {
             Poll::Ready(result) => {
                 self.folder_picker = None;
