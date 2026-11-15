@@ -6,6 +6,7 @@ rust-version = "1.85"
 authors = ["for404cat"]
 description = "Local-first EXIF and video metadata workbench built with Rust and egui"
 readme = "README.md"
+homepage = "https://for404cat.github.io/exif-studio/"
 repository = "https://github.com/for404cat/exif-studio"
 license = "MIT"
 keywords = ["exif", "metadata", "photo", "egui", "desktop"]

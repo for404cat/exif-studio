@@ -1,5 +1,7 @@
 # 参与开发
 
+简体中文 | [English](CONTRIBUTING.en.md)
+
 ## 提交问题
 
 请尽量提供：

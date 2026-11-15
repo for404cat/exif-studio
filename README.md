@@ -1,8 +1,14 @@
 # Exif Studio
 
+简体中文 | [English](README.en.md)
+
+[项目主页](https://for404cat.github.io/exif-studio/) · [GitHub](https://github.com/for404cat/exif-studio)
+
 本地运行的照片/视频元数据工作台，使用 Rust 和 `egui` 原生绘制。它直接读取普通目录或 SMB/UNC 共享，不依赖数据库、WebView 或云服务；扫描、缩略图、查重、水印都在本机完成。
 
 当前版本 `0.1.0`，Windows 是主要开发和测试平台，macOS/Linux 共用同一套代码并保留平台适配。
+
+[![Exif Studio 浏览界面](site/assets/browse.webp)](https://for404cat.github.io/exif-studio/)
 
 ## 功能
 
@@ -143,6 +149,8 @@ src/
 ├── platform.rs
 └── widgets.rs
 ```
+
+`site/` 是 GitHub Pages 主页，`docs/` 存放架构、开发和 API 文档。
 
 扫描、缓存、线程模型、状态不变量和性能约束见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 

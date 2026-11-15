@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Exif Studio">
+  <rect width="64" height="64" rx="16" fill="#e8b666"/>
+  <path d="M19 17h27v7H27v5h15v7H27v5h19v7H19z" fill="#0b0d11"/>
+  <circle cx="48.5" cy="15.5" r="4.5" fill="#0b0d11" opacity=".22"/>
+</svg>

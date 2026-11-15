@@ -1,5 +1,7 @@
 # 安全说明
 
+简体中文 | [English](SECURITY.en.md)
+
 ## 报告问题
 
 请通过 GitHub 仓库的 Security → Report a vulnerability 私下报告，不要先公开 Issue。报告时请说明影响版本、复现条件和可能的后果。

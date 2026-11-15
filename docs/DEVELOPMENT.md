@@ -1,5 +1,7 @@
 # 开发与维护
 
+简体中文 | [English](DEVELOPMENT.en.md)
+
 本文面向准备修改代码的人。先读 [ARCHITECTURE.md](ARCHITECTURE.md) 了解模块和状态不变量，再按这里的步骤操作。
 
 ## 1. 工具链

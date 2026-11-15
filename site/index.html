@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exif Studio — 本地照片与视频元数据工作台</title>
+  <meta name="description" content="Exif Studio 是一个用 Rust 和 egui 编写的本地照片/视频元数据工作台：浏览、检索、编辑 EXIF、查重、统计与水印，不上传文件。">
+  <meta name="theme-color" content="#0b0d11">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Exif Studio — 本地照片与视频元数据工作台">
+  <meta property="og:description" content="直接打开目录或 SMB 共享，浏览、编辑 EXIF、查重和统计。Rust + egui，无 WebView，无遥测。">
+  <meta property="og:url" content="https://for404cat.github.io/exif-studio/">
+  <meta property="og:image" content="https://for404cat.github.io/exif-studio/assets/browse.webp">
+  <meta property="og:locale" content="zh_CN">
+  <link rel="canonical" href="https://for404cat.github.io/exif-studio/">
+  <link rel="alternate" hreflang="en" href="https://for404cat.github.io/exif-studio/index.en.html">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/browse.webp" fetchpriority="high">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="Exif Studio 首页">
+        <img src="assets/icon.svg" alt="" width="34" height="34">
+        <span>Exif Studio<small>影像元数据工作台</small></span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#features">功能</a>
+        <a href="#how">工作方式</a>
+        <a href="#screens">界面</a>
+        <a href="#build">构建</a>
+        <a href="#docs">文档</a>
+      </nav>
+      <div class="header-actions">
+        <a class="lang" href="index.en.html" hreflang="en">EN</a>
+        <a class="button ghost" href="https://github.com/for404cat/exif-studio" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7A11.3 11.3 0 0 0 .7 12a11.3 11.3 0 0 0 7.7 10.7c.6.1.8-.2.8-.5v-2c-3.1.7-3.8-1.3-3.8-1.3-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.2-5.1-5.5 0-1.2.4-2.2 1.1-3-.1-.3-.5-1.4.1-2.9 0 0 1-.3 3.1 1.2a10.8 10.8 0 0 1 5.6 0c2.2-1.5 3.1-1.2 3.1-1.2.6 1.5.2 2.6.1 2.9.7.8 1.1 1.8 1.1 3 0 4.3-2.6 5.2-5.1 5.5.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.3 11.3 0 0 0 23.3 12 11.3 11.3 0 0 0 12 .7Z"/></svg>
+          查看源码
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-copy" data-reveal>
+          <div class="kicker"><i></i>Rust · egui · 本地优先</div>
+          <h1>把硬盘和共享里的照片，<br><span>变成可查的档案。</span></h1>
+          <p class="lead">Exif Studio 是一个本地运行的照片与视频元数据工作台。直接打开目录或 SMB 共享，浏览、检索、编辑 EXIF、查重和统计，不需要导入数据库，也不上传任何文件。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://github.com/for404cat/exif-studio" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .7A11.3 11.3 0 0 0 .7 12a11.3 11.3 0 0 0 7.7 10.7c.6.1.8-.2.8-.5v-2c-3.1.7-3.8-1.3-3.8-1.3-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.2-5.1-5.5 0-1.2.4-2.2 1.1-3-.1-.3-.5-1.4.1-2.9 0 0 1-.3 3.1 1.2a10.8 10.8 0 0 1 5.6 0c2.2-1.5 3.1-1.2 3.1-1.2.6 1.5.2 2.6.1 2.9.7.8 1.1 1.8 1.1 3 0 4.3-2.6 5.2-5.1 5.5.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5A11.3 11.3 0 0 0 23.3 12 11.3 11.3 0 0 0 12 .7Z"/></svg>
+              查看 GitHub
+            </a>
+            <a class="button" href="#build">从源码构建</a>
+            <a class="button ghost" href="#docs">阅读文档</a>
+          </div>
+          <ul class="facts">
+            <li><strong>39,496</strong>文件 SMB 压测</li>
+            <li><strong>37.1 s</strong>完整扫描</li>
+            <li><strong>0</strong>上传或遥测</li>
+          </ul>
+        </div>
+
+        <div class="hero-shot" data-reveal style="--d:.08s">
+          <div class="app-frame">
+            <img src="assets/browse.webp" width="1800" height="1174" alt="Exif Studio 浏览界面：左侧缩略图网格，右侧照片预览和 EXIF 摘要">
+          </div>
+          <div class="frame-note">
+            <span>浏览 · 预览 · EXIF 详情</span>
+            <span>真实界面截图 · Windows</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">核心能力</p>
+          <h2>从缩略图到 EXIF，再到重复组。</h2>
+          <p class="lead">功能围绕本地文件工作。缓存可以随时删除，照片和视频不会被移动或上传。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature" data-reveal style="--d:.02s">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            </div>
+            <h3>虚拟化浏览</h3>
+            <p>多标签页、连续缩放、子目录分组和文件名/时间/分辨率排序。数万文件也只渲染当前可见行。</p>
+          </article>
+          <article class="feature" data-reveal style="--d:.06s">
+            <div class="icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <h3>EXIF 查看与编辑</h3>
+            <p>相机、镜头、曝光、焦距、GPS 与拍摄时间。写入前备份，无法安全解析的结构直接拒绝写入。</p>
+          </article>
+          <article class="feature" data-reveal style="--d:.1s">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="m4.5 7.8 7.5 4.3 7.5-4.3M12 12.1V21"/></svg>
+            </div>
+            <h3>照片查重</h3>
+            <p>本地 dHash 与画质评分自动分组，标出每组最佳一张。支持分页、瀑布流和时间轴跳转。</p>
+          </article>
+          <article class="feature" data-reveal style="--d:.02s">
+            <div class="icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <h3>视频只读</h3>
+            <p>MP4/MOV 容器元数据、帧率、分辨率和封面。交给外部播放器前会先确认，不会误触跳走。</p>
+          </article>
+          <article class="feature" data-reveal style="--d:.06s">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3 5 6v5c0 4.4 2.9 8.5 7 10 4.1-1.5 7-5.6 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3>隐写水印</h3>
+            <p>生成 LSB 水印 PNG 副本，不改原图。本机视觉索引支持截图、缩放和二次压缩后的识别。</p>
+          </article>
+          <article class="feature" data-reveal style="--d:.1s">
+            <div class="icon teal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></svg>
+            </div>
+            <h3>本地 API</h3>
+            <p>可选的只读 HTTP 接口，仅监听 127.0.0.1，Bearer Token 鉴权，只返回已打开目录中的元数据。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">工作方式</p>
+          <h2>先把目录变成条目，再把条目变成结论。</h2>
+          <p class="lead">扫描、解码和查重都在 UI 线程之外。界面只轮询结果，并在必要时合并重绘。</p>
+        </div>
+        <div class="steps" data-reveal>
+          <article class="step">
+            <span class="step-num">01 / DISCOVER</span>
+            <h3>只读目录项</h3>
+            <p>发现阶段不读取文件元数据，每 180ms 推送一次进度。网络共享也能在 1 秒内看到数量。</p>
+          </article>
+          <article class="step">
+            <span class="step-num">02 / PARSE</span>
+            <h3>并行解析</h3>
+            <p>最多 24 个线程读取大小、时间和 EXIF；视频容器由纯 Rust 解析器处理，结果按文件名顺序回填。</p>
+          </article>
+          <article class="step">
+            <span class="step-num">03 / CACHE</span>
+            <h3>缓存可丢弃</h3>
+            <p>元数据、视觉指纹和缩略图分三层缓存。删除缓存只会触发重新读取，不影响原始文件。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="screens">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">界面</p>
+          <h2>统计不是报表，查重不是黑盒。</h2>
+          <p class="lead">图表直接基于当前目录的扫描结果；重复组会显示相似度、张数和自动优选，不会自动删除任何照片。</p>
+        </div>
+        <div class="gallery">
+          <figure data-reveal style="--d:.02s">
+            <a href="assets/stats.webp" aria-label="查看统计界面大图">
+              <img src="assets/stats.webp" width="1800" height="1174" loading="lazy" alt="Exif Studio 统计界面：格式、年份、品牌和月份分布">
+            </a>
+            <figcaption><strong>统计</strong><span>格式 · 年份 · 品牌 · GPS</span></figcaption>
+          </figure>
+          <figure data-reveal style="--d:.08s">
+            <a href="assets/duplicates.webp" aria-label="查看查重界面大图">
+              <img src="assets/duplicates.webp" width="1800" height="1174" loading="lazy" alt="Exif Studio 查重界面：相似组、自动优选和时间轴">
+            </a>
+            <figcaption><strong>照片查重</strong><span>相似组 · 优选 · 时间轴</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="performance">
+      <div class="wrap">
+        <div class="perf-panel" data-reveal>
+          <div>
+            <p class="eyebrow">性能基线</p>
+            <h2>39,496 个文件，37.1 秒扫描。</h2>
+            <p>在一台 Windows 机器上通过 SMB 打开含 37,215 张图片、2,281 个视频的目录：约 37 秒完成第一次扫描，1 秒内出现发现进度；连续缩放窗口后，UI 线程仍保持毫秒级响应。具体数字会随网络和磁盘变化，但“发现与解析分离、缓存可丢弃”的结构不变。</p>
+          </div>
+          <div class="metrics">
+            <div class="metric"><strong>39,496</strong><span>文件</span></div>
+            <div class="metric teal"><strong>37.1 s</strong><span>首次扫描</span></div>
+            <div class="metric teal"><strong>24</strong><span>元数据线程</span></div>
+            <div class="metric"><strong>6 / frame</strong><span>纹理上传上限</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="build">
+      <div class="wrap build-grid">
+        <div data-reveal>
+          <p class="eyebrow">构建</p>
+          <h2>构建只需要 Rust。</h2>
+          <p>要求 Rust stable 1.85+。Windows 是主要开发和测试平台，macOS/Linux 共用同一套代码；Linux 需要常见的 X11/Wayland 桌面依赖和中文字体。</p>
+          <ul>
+            <li>没有数据库、WebView 或前端构建链</li>
+            <li>仓库不提交测试照片，样例可本地生成</li>
+            <li>EXIF 写入默认创建 .bak 备份</li>
+          </ul>
+        </div>
+        <div class="code" data-reveal style="--d:.08s">
+          <div class="code-head"><i></i><i></i><i></i><button class="copy" type="button" data-copy="#build-code" data-copied="已复制" data-failed="复制失败">复制</button></div>
+          <pre id="build-code"><span class="comment"># 克隆并运行</span>
+<span class="command">git clone</span> https://github.com/for404cat/exif-studio.git
+<span class="command">cd</span> exif-studio
+<span class="command">cargo run</span> --release -- "D:\Photos"
+
+<span class="comment"># 生成测试素材（不提交）</span>
+<span class="command">cargo run</span> --example make_samples
+
+<span class="comment"># 质量检查</span>
+<span class="command">cargo fmt</span> --check
+<span class="command">cargo clippy</span> --all-targets -- -D warnings
+<span class="command">cargo test</span> --all-targets</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="docs">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">继续阅读</p>
+          <h2>给维护者看的文档。</h2>
+          <p class="lead">功能说明之外，仓库还记录了线程模型、状态不变量、缓存失效规则和新增功能的操作步骤。</p>
+        </div>
+        <div class="doc-grid">
+          <a class="doc-card" href="https://github.com/for404cat/exif-studio/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noreferrer" data-reveal style="--d:.02s">
+            <span>Architecture</span>
+            <h3>架构与实现</h3>
+            <p>扫描、缓存、缩略图、查重算法、线程模型与性能约束。</p>
+          </a>
+          <a class="doc-card" href="https://github.com/for404cat/exif-studio/blob/main/docs/DEVELOPMENT.md" target="_blank" rel="noreferrer" data-reveal style="--d:.06s">
+            <span>Development</span>
+            <h3>开发与维护</h3>
+            <p>调试、测试素材、扩展格式/字段/视图、发布检查表。</p>
+          </a>
+          <a class="doc-card" href="https://github.com/for404cat/exif-studio/blob/main/docs/API.md" target="_blank" rel="noreferrer" data-reveal style="--d:.1s">
+            <span>Local API</span>
+            <h3>本地 API</h3>
+            <p>只读端点、查询参数、返回结构和安全边界。</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>Exif Studio 0.1.0 · MIT License · 无遥测</span>
+      <div class="footer-links">
+        <a href="https://github.com/for404cat/exif-studio" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/for404cat/exif-studio/blob/main/README.md" target="_blank" rel="noreferrer">README</a>
+        <a href="index.en.html" hreflang="en">English</a>
+        <a href="https://github.com/for404cat/exif-studio/blob/main/SECURITY.md" target="_blank" rel="noreferrer">安全</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
