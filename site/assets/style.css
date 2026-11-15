@@ -827,6 +827,10 @@ figcaption strong {
 }
 
 @media (max-width: 720px) {
+  .hero h1 br {
+    display: none;
+  }
+
   .wrap {
     width: min(100% - 32px, 1180px);
   }
@@ -899,6 +903,10 @@ figcaption strong {
 }
 
 @media (max-width: 430px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
   .facts li {
     border-left: 0;
     padding: 5px 12px;
